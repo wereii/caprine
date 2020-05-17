@@ -1,7 +1,7 @@
 {
 	"name": "caprine",
 	"productName": "Caprine",
-	"version": "2.46.0",
+	"version": "2.46.0-v8cache",
 	"description": "Elegant Facebook Messenger desktop app",
 	"license": "MIT",
 	"repository": "sindresorhus/caprine",
@@ -40,7 +40,8 @@
 		"is-online": "^8.3.1",
 		"json-schema-typed": "^7.0.3",
 		"lodash": "^4.17.15",
-		"p-wait-for": "^3.1.0"
+		"p-wait-for": "^3.1.0",
+		"v8-compile-cache": "^2.1.0"
 	},
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^0.7.0",

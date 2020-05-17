@@ -1,3 +1,4 @@
+import 'v8-compile-cache';
 import * as path from 'path';
 import {readFileSync, existsSync} from 'fs';
 import {
