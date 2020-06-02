@@ -198,7 +198,7 @@ Press Command/Ctrl+R in Caprine to see your changes.
 					writeFileSync(filePath, defaultCustomStyle, 'utf8');
 				}
 
-				shell.openItem(filePath);
+				shell.openPath(filePath);
 			}
 		}
 	];
@@ -262,6 +262,16 @@ Press Command/Ctrl+R in Caprine to see your changes.
 			checked: config.get('showUnreadBadge'),
 			click() {
 				config.set('showUnreadBadge', !config.get('showUnreadBadge'));
+				sendAction('reload');
+			}
+		},
+		{
+			label: 'Spell Checker',
+			type: 'checkbox',
+			checked: config.get('isSpellCheckerEnabled'),
+			click() {
+				config.set('isSpellCheckerEnabled', !config.get('isSpellCheckerEnabled'));
+				showRestartDialog('Caprine needs to be restarted to enable or disable the spell checker.');
 			}
 		},
 		{
@@ -607,7 +617,7 @@ Press Command/Ctrl+R in Caprine to see your changes.
 		},
 		{
 			label: 'Spell Checker Language',
-			visible: !is.macos,
+			visible: !is.macos && config.get('isSpellCheckerEnabled'),
 			submenu: spellCheckerSubmenu
 		}
 	];
@@ -667,7 +677,7 @@ ${debugInfo()}`;
 		{
 			label: 'Show App Data',
 			click() {
-				shell.openItem(app.getPath('userData'));
+				shell.openPath(app.getPath('userData'));
 			}
 		},
 		{

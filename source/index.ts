@@ -143,13 +143,11 @@ async function updateBadge(conversations: Conversation[]): Promise<void> {
 	tray.update(messageCount);
 
 	if (is.windows) {
-		if (config.get('showUnreadBadge')) {
-			if (messageCount === 0) {
-				mainWindow.setOverlayIcon(null, '');
-			} else {
-				// Delegate drawing of overlay icon to renderer process
-				updateOverlayIcon(await ipcMain.callRenderer(mainWindow, 'render-overlay-icon', messageCount));
-			}
+		if (!config.get('showUnreadBadge') || messageCount === 0) {
+			mainWindow.setOverlayIcon(null, '');
+		} else {
+			// Delegate drawing of overlay icon to renderer process
+			updateOverlayIcon(await ipcMain.callRenderer(mainWindow, 'render-overlay-icon', messageCount));
 		}
 	}
 }
@@ -310,7 +308,7 @@ function createMainWindow(): BrowserWindow {
 			preload: path.join(__dirname, 'browser.js'),
 			nativeWindowOpen: true,
 			contextIsolation: true,
-			spellcheck: true,
+			spellcheck: config.get('isSpellCheckerEnabled'),
 			plugins: true
 		}
 	});
